@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Teller</title>
+</head>
+<body>
+    <h1>Fortune Teller Game</h1>
+    <form method="POST" action="/fortune">
+        <label for="user">Enter your name:</label>
+        <input type="text" name="user" required><br><br>
+
+        <label for="color">Select a color:</label>
+        <select name="color" required>
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select><br><br>
+
+        <label for="number">Select a number:</label>
+        <select name="number" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
