@@ -9,8 +9,7 @@ def fortune():
         user_name = request.form['user']
         color = request.form['color']
         number = request.form['number']
-        
-        # Define fortunes based on color and number
+    
         fortunes = {
             'red': {
                 '1': "You will have a great day ahead!",
