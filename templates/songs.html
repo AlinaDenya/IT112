@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Songs</title>
+</head>
+<body>
+  <h1>All Songs</h1>
+  <ul>
+    {% for song in songs %}
+      <li>
+        <a href="{{ url_for('song_detail', song_id=song.id) }}" target="_blank">
+          {{ song.title }} by {{ song.artist }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
