@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder="templates")
@@ -78,6 +78,51 @@ def fortune():
                                number=number,
                                fortune=fortune_message)
     return render_template('fortune_form.html')
+
+@app.route('/api/songs', methods=['GET'])
+def api_get_songs():
+    songs = Song.query.all()
+    songs_list = [
+        {
+            'id': song.id,
+            'title': song.title,
+            'artist': song.artist,
+            'genre': song.genre,
+            'year': song.year
+        }
+        for song in songs
+    ]
+    return make_response(jsonify(songs_list), 200)
+
+@app.route('/api/songs', methods=['POST'])
+def api_create_song():
+    data = request.get_json(force=True)
+    try:
+        new_song = Song(
+            title=data['title'],
+            artist=data['artist'],
+            genre=data['genre'],
+            year=data['year']
+        )
+        db.session.add(new_song)
+        db.session.commit()
+
+        songs = Song.query.all()
+        songs_list = [
+            {
+                'id': song.id,
+                'title': song.title,
+                'artist': song.artist,
+                'genre': song.genre,
+                'year': song.year
+            }
+            for song in songs
+        ]
+        return make_response(jsonify(songs_list), 200)
+
+    except Exception as e:
+        db.session.rollback()
+        return make_response(jsonify({'error': str(e)}), 500)
 
 if __name__ == '__main__':
     init_db()
